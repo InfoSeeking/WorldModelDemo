@@ -1,0 +1,29 @@
+# Local dataset / experiments
+IntPhys2/
+
+# macOS
+.DS_Store
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node.js
+node_modules/
+
+# Logs / runtime temp files
+*.log
+*.tmp
+tmp/
+
+# Environment files
+.env
+.env.*

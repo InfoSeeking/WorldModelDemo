@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WorldModelDemo — Can AI See What's Next?</title>
+  <meta name="description" content="An interactive benchmark comparing provided LLM, vision model, and world model outputs against physical clip outcomes. Pick a clip, make your prediction, then compare the results." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="index">
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <span class="logo-dot"></span>
+      WorldModelDemo
+    </a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-tag">🔬 Output Comparison</div>
+    <h1>Can AI See<br><span>What's Next?</span></h1>
+    <p>Watch a physical event, make your own prediction, then compare it with the supplied outputs from Claude 4.5 Haiku, Amazon Nova Pro, and Meta VJEPA-2.</p>
+  </header>
+
+  <main>
+    <!-- How it works -->
+    <section class="section">
+      <div class="section-header">
+        <h2>How it works</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <div class="how-icon">🎬</div>
+          <h4>Pick a Clip</h4>
+          <p>Choose any physical scenario from the library below.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <div class="how-icon">⏸</div>
+          <h4>Clip Pauses</h4>
+          <p>The video pauses just before the key moment.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <div class="how-icon">🧠</div>
+          <h4>Make a Prediction</h4>
+          <p>Type what you think will happen next.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <div class="how-icon">🔍</div>
+          <h4>Reveal & Compare</h4>
+          <p>See ground truth alongside the provided LLM, vision, and world model outputs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clip library -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Clips</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="clips-grid" id="clips-grid">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p style="color:var(--text-muted);font-size:14px;">Loading clips…</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>WorldModelDemo · Built to compare provided model outputs on physical scenes</p>
+    <a href="https://github.com/shobhit-infoseeking/WorldModelDemo" target="_blank" rel="noopener">View on GitHub ↗</a>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
