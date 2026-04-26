@@ -7,7 +7,7 @@ An interactive benchmark that compares predictions from an **LLM**, **vision mod
 This project is deployed as a static site on **GitHub Pages**.
 
 Live URL:
-- `https://<github-username>.github.io/WorldModelDemo/`
+- `https://InfoSeeking.github.io/WorldModelDemo/`
 
 ## Models Used
 - **LLM:** Claude 4.5 Haiku
