@@ -21,7 +21,7 @@
         "prediction": "A blue ball is launched from the left side and hits the red and white horizontal bar, causing it to vibrate."
       }
     },
-    "analysis": "The LLM output matches the clip outcome. The vision model and world model both describe a different scene entirely, so they are not accurate for this clip."
+    "analysis": "LLM gets the key physics right: the ball rolls off the table and falls. Vision and world model miss the scene and predict a different setup with a launched ball hitting a bar. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_box_occlusion_easy",
@@ -45,7 +45,7 @@
         "prediction": "The door closes, and the blue cube is no longer visible from the camera's perspective."
       }
     },
-    "analysis": "The LLM output is consistent with the clip: the cube settles at the bottom of the box. The vision and world model outputs refer to a blue cube and a closing door, which do not match the actual scene."
+    "analysis": "LLM correctly predicts the red cube continues downward and comes to rest at the bottom. Vision and world model instead describe a blue cube and a closing door, which are not in this clip. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_camera_solidity",
@@ -69,7 +69,7 @@
         "prediction": "The red ball rolls towards the right, and the wooden structure moves to the left, revealing the ball behind it."
       }
     },
-    "analysis": "The LLM output captures the solidity interaction correctly. The vision and world model outputs instead describe the ball being revealed by a moving structure, which is a different event from the barrier collision shown in the clip."
+    "analysis": "LLM captures the core solidity event: the red ball contacts the wooden barrier and bounces back. Vision and world model predict a reveal-through-motion event rather than a barrier collision. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_falling_flat_collision",
@@ -93,7 +93,7 @@
         "prediction": "The wooden crate will fall onto the brick and crush it, then the crate will settle on the white platform."
       }
     },
-    "analysis": "All three outputs point to the same overall outcome: the falling crate lands on the smaller block and platform. The LLM stays closest to the exact scene wording, while the vision and world model outputs are slightly more specific about the block being crushed."
+    "analysis": "All models capture the main outcome that the falling crate lands on the block/platform. LLM is more conservative and scene-faithful, while vision and world model add a stronger impact consequence by saying the brick is crushed, which is plausible but not certain from this clip. Stronger model for this clip: borderline (LLM on fidelity; world model arguable on impact specificity)."
   },
   {
     "id": "clip_hot_air_balloon_continuity",
@@ -117,7 +117,7 @@
         "prediction": "The hot air balloons continue to move in a circular motion, with the baskets remaining stationary on the ground."
       }
     },
-    "analysis": "The LLM output matches the visible continuity in the clip. The vision and world model outputs introduce motion patterns and stationary baskets that are not supported by the scene."
+    "analysis": "LLM correctly tracks continued balloon motion and occlusion continuity. Vision and world model introduce circular motion and stationary baskets on the ground, which conflict with the scene. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_moving_occluder_easy",
@@ -141,7 +141,7 @@
         "prediction": "The wooden box will continue to rotate, revealing more of the desert landscape behind it as it turns."
       }
     },
-    "analysis": "The LLM output correctly tracks the occluder clearing the object. The vision and world model outputs again describe a different scene involving a rotating box in the desert."
+    "analysis": "LLM correctly predicts that the occluder clears and the blocked objects are revealed again. Vision and world model switch to an unrelated rotating-box desert scene. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_moving_occluder_hard",
@@ -165,7 +165,7 @@
         "prediction": "The wooden board is expected to continue its fall and eventually land on the ground in the desert."
       }
     },
-    "analysis": "The LLM output matches the reveal at the end of the clip. The vision and world model outputs do not match the objects or motion shown here."
+    "analysis": "LLM follows the correct object family and occluder-reveal pattern, though it misses the hidden position-switch detail in the ground truth. Vision and world model predict a falling wooden board in a desert scene, which does not match this clip. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_rotating_cup_reveal_easy",
@@ -189,7 +189,7 @@
         "prediction": "The two bowls will continue to rotate in place, showing different parts of their designs and the changing reflections of the sky."
       }
     },
-    "analysis": "All three outputs capture continued rotation, but the LLM stays accurate to the single teacup and the hidden objects inside it. The vision and world model outputs describe the scene more loosely as two bowls with visual reflections."
+    "analysis": "LLM stays aligned with the observed dynamics by describing continued cup rotation with intermittent visibility of internal objects. Vision and world model correctly note ongoing rotation but misidentify the setup as generic bowls with sky reflections and miss the object-level behavior. Stronger model for this clip: LLM."
   },
   {
     "id": "clip_rotating_cup_reveal_hard",
@@ -213,7 +213,7 @@
         "prediction": "The red ball is released from the left cup and is about to be caught by the right cup."
       }
     },
-    "analysis": "The LLM output matches the clip's continuing cup rotation. The vision and world model outputs describe a cup-to-cup transfer with a red ball that is not present in this scene."
+    "analysis": "LLM captures ongoing rotation and intermittent visibility, but it does not mention the cross-cup transfer behavior in this hard clip. Vision and world model capture the left-to-right transfer dynamic, but they misidentify the transferred item as a red ball instead of the pink object. Stronger model for this clip: world model (on transfer dynamics), with LLM stronger on object identity wording."
   },
   {
     "id": "clip_stacked_blocks_tower",
@@ -237,6 +237,6 @@
         "prediction": "The colorful fabric continues to hang on the metal frame, swaying gently in the wind. The scene remains static, with no significant changes or movements."
       }
     },
-    "analysis": "All three outputs are directionally consistent that the structure remains standing. The LLM is the most faithful to the scaffold scene, while the vision and world model outputs describe the hanging fabric more generally."
+    "analysis": "LLM best matches the scaffold/tower scene and the structure-stays-standing outcome. Vision and world model partially align on overall stability but reduce the scene to hanging fabric and omit key tower/ball context. Stronger model for this clip: LLM."
   }
 ]
