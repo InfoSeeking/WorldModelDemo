@@ -1,8 +1,15 @@
-# Local dataset / experiments
-IntPhys2/
+# Large local datasets / generated assets (do not commit)
+clips/mmtom_tasks/
+clips/mmtom_frames/
+clips/testin/
+public/videos/mmtom/
+videos_selected/
+scripts/
+*.zip
 
 # macOS
 .DS_Store
+**/.DS_Store
 
 # Editors / IDEs
 .vscode/

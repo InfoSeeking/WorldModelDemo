@@ -1,7 +1,7 @@
 # WorldModelDemo
 **Can AI See What's Next?**
 
-An interactive benchmark that compares predictions from an **LLM**, **vision model**, and **world model** on short physical-scene clips.
+An interactive benchmark that compares predictions from an **LLM**, **vision model**, and **world model** on MMToM-QA clips.
 
 ## Deployment Target
 This project is deployed as a static site on **GitHub Pages**.
@@ -12,7 +12,7 @@ Live URL:
 ## Models Used
 - **LLM:** Claude 4.5 Haiku
 - **Vision Model:** Amazon Nova Pro
-- **World Model:** Meta VJEPA-2
+- **World Model:** VideoMAE v2
 
 ## Structure
 ```
@@ -21,8 +21,9 @@ WorldModelDemo/
 ├── results.html        # Prediction + comparison page
 ├── css/style.css       # Design system & styles
 ├── js/app.js           # App logic
-├── data/clips.json     # Clip metadata, model predictions, and analysis
-└── clips/              # Video files
+├── data/mmtomClips.js  # MMToM-QA clips, Q/A, model outputs, and analysis
+├── clips/mmtom/        # Demo video files used by the website
+└── clips/testin/       # Benchmark records, prompts, and model output logs
 ```
 
 ## How It Works

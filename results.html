@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loading Clip… — WorldModelDemo</title>
-  <meta name="description" content="Make your prediction, then compare it against ground truth and the provided outputs from the LLM, vision model, and world model." />
+  <meta name="description" content="Answer the MMToM-QA question, then compare your response against official ground truth and provided AI outputs." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -42,28 +42,13 @@
       <!-- Pause overlay -->
       <div class="pause-overlay" id="pause-overlay">
         <h3>⏸ What happens next?</h3>
-        <p>Video paused just before the outcome. Enter your prediction, then reveal the provided model outputs.</p>
+        <p>Video paused at the MMToM-QA prediction point. Answer the question, then reveal the provided model outputs.</p>
       </div>
     </div>
 
-    <!-- Prediction input -->
-    <div class="prediction-section">
-      <h3>🧠 Your Prediction</h3>
-      <p class="prediction-label">What do you think happens when the video resumes?</p>
-      <textarea
-        id="user-prediction"
-        class="prediction-textarea"
-        placeholder="Describe what you think will happen next…"
-        aria-label="Your prediction"
-      ></textarea>
-
-      <button
-        id="reveal-btn"
-        class="reveal-btn"
-        disabled
-      >
-        Submit
-      </button>
+    <!-- Question -->
+    <div class="question-section" id="question-section" hidden>
+      <!-- Injected by JS -->
     </div>
 
     <!-- Results (hidden until reveal) -->
@@ -74,10 +59,10 @@
   </main>
 
   <footer>
-    <p>WorldModelDemo · Built to compare provided model outputs on physical scenes</p>
+    <p>WorldModelDemo · MMToM-QA Theory of Mind comparison demo</p>
     <a href="index.html">← All Clips</a>
   </footer>
 
-  <script src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=20260510c"></script>
 </body>
 </html>
