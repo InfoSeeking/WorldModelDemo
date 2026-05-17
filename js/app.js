@@ -1,5 +1,4 @@
 /* ── WorldModelDemo — app.js ── */
-import { mmtomClips } from '../data/mmtomClips.js';
 
 const USER_PREDICTION_FALLBACK = '(no prediction entered)';
 const QUESTION_FALLBACK = 'Question coming soon.';
@@ -8,7 +7,7 @@ const GROUND_TRUTH_FALLBACK = 'Ground truth coming soon.';
 const MODEL_RESULT_FALLBACK = 'Model result coming soon.';
 const LLM_INPUT_FALLBACK = 'Text input will be added after extracting the official MMToM-QA description.';
 const ANALYSIS_FALLBACK = 'Analysis coming soon.';
-const PRE_PAUSE_INSTRUCTION = 'Watch the clip first. The MMToM-QA question will appear when the video pauses at the prediction point.';
+const PRE_PAUSE_INSTRUCTION = 'Watch the full clip first. The MMToM-QA question will appear after the video ends. You can reveal results at any time.';
 const BENCHMARK_CONTEXT_FALLBACK = 'Benchmark context is unavailable for this test.';
 
 let clipsCache = null;
@@ -157,6 +156,7 @@ async function loadClips() {
     return clipsCache;
   }
 
+  const mmtomClips = window.mmtomClips;
   if (!Array.isArray(mmtomClips)) {
     throw new Error('mmtomClips is not a valid array');
   }
@@ -348,16 +348,19 @@ function renderResults(clip, userPrediction) {
   const world = getModelBlock(clip, 'worldModel', 'World Model');
   const llmModelName = 'Claude 4.5 Haiku';
   const vlmModelName = 'Amazon Nova Pro';
-  const worldModelName = 'VideoMAEv2';
+  const worldModelName = 'VJEPA2';
   const analysis = fallbackText(clip.analysis, ANALYSIS_FALLBACK);
   const llmInput = fallbackText(clip.textInputForLLM, LLM_INPUT_FALLBACK);
+  const userPredictionCard = hasText(userPrediction)
+    ? getModelResultHtml('card-user', '🧠', 'Your Prediction', 'You', userPrediction, '')
+    : '';
 
   panel.innerHTML = `
     <div class="analysis-card llm-input-card">
       <h4>Text input given to the LLM</h4>
       <p>${escapeHtml(llmInput)}</p>
     </div>
-    ${getModelResultHtml('card-user', '🧠', 'Your Prediction', 'You', userPrediction || USER_PREDICTION_FALLBACK, '')}
+    ${userPredictionCard}
     ${getModelResultHtml('card-truth', '✅', 'Ground Truth', 'MMToM-QA Official Answer', getGroundTruth(clip), '')}
     ${getModelResultHtml('card-llm', '🤖', 'LLM', llmModelName, llm.answer, llm.reasoning)}
     ${getModelResultHtml('card-vision', '👁️', 'Vision Model', vlmModelName, vlm.answer, vlm.reasoning)}
@@ -420,7 +423,7 @@ async function initIndex() {
     orderedClips.forEach((clip) => {
       const llmLabel = 'Claude 4.5 Haiku';
       const vlmLabel = 'Amazon Nova Pro';
-      const worldLabel = 'VideoMAEv2';
+      const worldLabel = 'VJEPA2';
 
       const thumbHtml = hasText(clip.thumbnail)
         ? `
@@ -507,88 +510,72 @@ async function initResults() {
   );
   document.title = `${clip.title} — WorldModelDemo`;
 
-  let hasPausedAtGate = false;
   let hasSubmittedPrediction = false;
   let hasResultsRevealed = false;
   let hasQuestionUiRevealed = false;
   let submittedPrediction = '';
 
-  const showQuestionUi = () => {
-    if (hasQuestionUiRevealed) {
-      return;
-    }
-
-    hasQuestionUiRevealed = true;
-    questionSection.hidden = false;
-    questionControls = renderQuestion(clip, (predictionText, controls) => {
-      if (!hasPausedAtGate || hasSubmittedPrediction || !hasText(predictionText)) {
-        return;
-      }
-
-      hasSubmittedPrediction = true;
-      submittedPrediction = predictionText;
-      controls?.lock?.();
-      overlay?.classList.remove('visible');
-      videoContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      void video.play();
-    });
-  };
-
-  // Keep the user focused on the visual context first.
-  questionSection.hidden = false;
-  questionSection.innerHTML = `
-    <h3>Watch First</h3>
-    <p class="placeholder-text">${escapeHtml(PRE_PAUSE_INSTRUCTION)}</p>
-  `;
-
-  const revealAfterPlayback = () => {
-    if (!hasSubmittedPrediction || hasResultsRevealed) {
+  const revealResultsNow = (predictionText = submittedPrediction) => {
+    if (hasResultsRevealed) {
       return;
     }
 
     hasResultsRevealed = true;
-    renderResults(clip, submittedPrediction);
+    renderResults(clip, predictionText);
     questionControls?.lock?.();
 
     const resultsPanel = document.getElementById('results-panel');
     resultsPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  video.src = getVideoSrc(clip);
-
-  if (typeof getPauseTime(clip) !== 'number') {
-    hasPausedAtGate = true;
-    showQuestionUi();
-  }
-
-  video.addEventListener('timeupdate', () => {
-    const pauseTime = getPauseTime(clip);
-    if (hasPausedAtGate || typeof pauseTime !== 'number') {
+  const showQuestionUi = () => {
+    if (hasQuestionUiRevealed || hasResultsRevealed) {
       return;
     }
 
-    if (video.currentTime >= pauseTime) {
-      video.pause();
-      hasPausedAtGate = true;
-      overlay?.classList.add('visible');
-      showQuestionUi();
-    }
+    hasQuestionUiRevealed = true;
+    questionSection.hidden = false;
+    questionControls = renderQuestion(clip, (predictionText, controls) => {
+      if (hasSubmittedPrediction || !hasText(predictionText)) {
+        return;
+      }
+
+      hasSubmittedPrediction = true;
+      submittedPrediction = predictionText;
+      controls?.lock?.();
+      revealResultsNow(submittedPrediction);
+    });
+  };
+
+  // Keep the user focused on watching the clip first.
+  questionSection.hidden = false;
+  questionSection.innerHTML = `
+    <h3>Watch Full Clip</h3>
+    <p class="placeholder-text">${escapeHtml(PRE_PAUSE_INSTRUCTION)}</p>
+    <button class="reveal-btn" type="button" data-role="early-reveal">Reveal Results Now</button>
+  `;
+  const earlyRevealButton = questionSection.querySelector('[data-role="early-reveal"]');
+  earlyRevealButton?.addEventListener('click', () => {
+    video.pause();
+    revealResultsNow();
   });
 
-  video.addEventListener('play', () => {
-    if (hasPausedAtGate && !hasSubmittedPrediction) {
-      video.pause();
-    }
-  });
+  video.src = getVideoSrc(clip);
 
-  video.addEventListener('ended', revealAfterPlayback);
+  overlay?.classList.remove('visible');
+  video.addEventListener('ended', () => {
+    if (hasResultsRevealed) {
+      return;
+    }
+    showQuestionUi();
+    questionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 }
 
 // ─────────────────────────────────────────
 //  Route
 // ─────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
   const page = document.body.dataset.page;
   if (page === 'index') {
     void initIndex();
@@ -596,4 +583,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (page === 'results') {
     void initResults();
   }
-});
+})();
