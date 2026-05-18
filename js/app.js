@@ -56,16 +56,6 @@ function getOptions(clip) {
   };
 }
 
-function getPauseTime(clip) {
-  if (typeof clip.pauseTime === 'number') {
-    return clip.pauseTime;
-  }
-  if (typeof clip.pause_at === 'number') {
-    return clip.pause_at;
-  }
-  return null;
-}
-
 function getVideoSrc(clip) {
   return safeString(clip.videoSrc || clip.video);
 }
@@ -366,7 +356,7 @@ function renderResults(clip, userPrediction) {
     ${getModelResultHtml('card-vision', '👁️', 'Vision Model', vlmModelName, vlm.answer, vlm.reasoning)}
     ${getModelResultHtml('card-world', '🌐', 'World Model', worldModelName, world.answer, world.reasoning)}
     <div class="analysis-card">
-      <h4>🔬 Analysis & Comparison</h4>
+      <h4>Analysis & Comparison</h4>
       <p>${escapeHtml(analysis)}</p>
     </div>
   `;
@@ -494,7 +484,6 @@ async function initResults() {
   const clipDescription = document.getElementById('clip-description');
   const videoContainer = document.getElementById('video-container');
   const video = document.getElementById('clip-video');
-  const overlay = document.getElementById('pause-overlay');
   const questionSection = document.getElementById('question-section');
   let questionControls = null;
 
@@ -562,7 +551,6 @@ async function initResults() {
 
   video.src = getVideoSrc(clip);
 
-  overlay?.classList.remove('visible');
   video.addEventListener('ended', () => {
     if (hasResultsRevealed) {
       return;

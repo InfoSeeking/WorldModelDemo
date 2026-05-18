@@ -12,7 +12,7 @@ Live URL:
 ## Models Used
 - **LLM:** Claude 4.5 Haiku
 - **Vision Model:** Amazon Nova Pro
-- **World Model:** VideoMAE v2
+- **World Model:** V-JEPA 2
 
 ## Structure
 ```
@@ -22,13 +22,12 @@ WorldModelDemo/
 ├── css/style.css       # Design system & styles
 ├── js/app.js           # App logic
 ├── data/mmtomClips.js  # MMToM-QA clips, Q/A, model outputs, and analysis
-├── clips/mmtom/        # Demo video files used by the website
-└── clips/testin/       # Benchmark records, prompts, and model output logs
+├── clips/              # Demo video files used by the website
 ```
 
 ## How It Works
 1. User picks a clip from the library
-2. Video plays and **pauses before the key moment**
-3. User types their prediction
-4. Results revealed: **Your prediction · Ground Truth · LLM · Vision Model · World Model**
+2. Video plays the full clip, then the MMToM-QA question appears
+3. User can submit a prediction (optional)
+4. Results revealed: **Ground Truth · LLM · Vision Model · World Model** (and **Your prediction**, if provided)
 5. Analysis summarizes how each model output lines up with the clip outcome

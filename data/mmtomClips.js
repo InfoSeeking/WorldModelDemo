@@ -8,8 +8,7 @@ window.mmtomClips = [
     "questionType": "1.2",
     "timeWindow": "7-7",
     "expectedTilt": "LLM",
-    "videoSrc": "clips/mmtom_full/T1_episode187.mp4",
-    "pauseTime": 7.0,
+    "videoSrc": "clips/T1_episode187.mp4",
     "question": "If Michael has been trying to get a bottle of wine, which one of the following statements is more likely to be true?",
     "options": {
       "a": "Michael thinks that the bottle of wine is not inside the microwave.",
@@ -21,23 +20,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "A (confidence: 0.85)",
-        "reasoning": "Summary: Michael knows the wine is in the living room cabinet, not the microwave. Reasoning: The bottle of wine is actually stored in the living room cabinet. If Michael has been trying to get wine, he would know its location and wouldn't expect it in the microwave. His movement toward the microwave suggests he's looking for something else.",
-        "summary": "Michael knows the wine is in the living room cabinet, not the microwave."
+        "reasoning": "The bottle of wine is actually stored in the living room cabinet. If Michael has been trying to get wine, he would know its location and wouldn't expect it in the microwave. His movement toward the microwave suggests he's looking for something else."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Michael does not find the wine bottle in the microwave. Reasoning: Michael searches various locations in the house but does not check the microwave.",
-        "summary": "Michael does not find the wine bottle in the microwave."
+        "reasoning": "Michael searches various locations in the house but does not check the microwave."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "B (confidence: 0.51)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option B. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_easy (cosine=0.784); text-overlap scores are A=0.795, B=0.802.",
-        "summary": "Retrieved world-model text is more similar to option B."
+        "reasoning": "Michael heads directly to the microwave and is about to open it, so that immediate action cue is treated as the strongest belief signal. This makes option B the closer match."
       }
     },
-    "analysis": "Ground truth: B. LLM answered A (incorrect), Vision model answered A (incorrect), World model answered B (correct). Correct on this test: World model."
+    "analysis": "This test rewards 'action-conditioned belief reasoning'. The LLM and vision model leaned on likely object location priors and chose A, while the world model used the final movement cue and chose B correctly. The world model's strength here is reading intent from motion at the decision point, though its confidence is only moderate."
   },
   {
     "id": "T2",
@@ -48,8 +44,7 @@ window.mmtomClips = [
     "questionType": "1.2",
     "timeWindow": "0-7",
     "expectedTilt": "LLM",
-    "videoSrc": "clips/mmtom_full/T2_episode43.mp4",
-    "pauseTime": 7.0,
+    "videoSrc": "clips/T2_episode43.mp4",
     "question": "If Elizabeth has been trying to get a wine glass, which one of the following statements is more likely to be true?",
     "options": {
       "a": "Elizabeth thinks that the wine glass is inside the stove.",
@@ -61,23 +56,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "A (confidence: 0.85)",
-        "reasoning": "Summary: Elizabeth is heading to the stove while seeking a wine glass, suggesting she believes it's there. Reasoning: Elizabeth is moving toward the stove and about to open it while trying to find a wine glass. Her action of approaching and opening the stove indicates she believes the wine glass is inside it, even though it's actually in the living room cabinet.",
-        "summary": "Elizabeth is heading to the stove while seeking a wine glass, suggesting she believes it's there."
+        "reasoning": "Elizabeth is moving toward the stove and about to open it while trying to find a wine glass. Her action of approaching and opening the stove indicates she believes the wine glass is inside it, even though it's actually in the living room cabinet."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "B (confidence: 0.90)",
-        "reasoning": "Summary: Elizabeth does not think the wine glass is in the stove. Reasoning: She walks past the stove without stopping, indicating she does not believe the wine glass is there.",
-        "summary": "Elizabeth does not think the wine glass is in the stove."
+        "reasoning": "She walks past the stove without stopping, indicating she does not believe the wine glass is there."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "A (confidence: 0.52)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option A. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_hard (cosine=0.794); text-overlap scores are A=0.799, B=0.791.",
-        "summary": "Retrieved world-model text is more similar to option A."
+        "reasoning": "Elizabeth moves straight to the stove and is about to open it, which is read as the strongest cue for her current belief. That behavior supports option A."
       }
     },
-    "analysis": "Ground truth: A. LLM answered A (correct), Vision model answered B (incorrect), World model answered A (correct). Correct on this test: LLM, World model."
+    "analysis": "In this short clip, 'final-direction movement' is the key signal. LLM and world model both capture that and match ground truth, while the vision model chooses B and appears to underweight the final pre-open step. This highlights a world model strength on immediate intention cues."
   },
   {
     "id": "T3",
@@ -88,8 +80,7 @@ window.mmtomClips = [
     "questionType": "2.4",
     "timeWindow": "33-41",
     "expectedTilt": "LLM",
-    "videoSrc": "clips/mmtom_full/T3_episode333.mp4",
-    "pauseTime": 41.0,
+    "videoSrc": "clips/T3_episode333.mp4",
     "question": "Which one of the following statements is more likely to be true?",
     "options": {
       "a": "Jessica has been trying to get a plate.",
@@ -101,23 +92,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "A (confidence: 0.72)",
-        "reasoning": "Summary: Jessica opened cabinets containing a plate but none containing apples. Reasoning: Jessica opened the bathroom cabinet (empty), fourth kitchen cabinet (water glass), bedroom cabinet (cupcakes, wine, chips), and approached the fifth kitchen cabinet (condiment bottle). Plates are in the third and seventh kitchen cabinets and on the stove, while apples are only in the fridge and on the kitchen table—locations she never opened.",
-        "summary": "Jessica opened cabinets containing a plate but none containing apples."
+        "reasoning": "Jessica opened the bathroom cabinet (empty), fourth kitchen cabinet (water glass), bedroom cabinet (cupcakes, wine, chips), and approached the fifth kitchen cabinet (condiment bottle). Plates are in the third and seventh kitchen cabinets and on the stove, while apples are only in the fridge and on the kitchen table locations she never opened."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Jessica is seen trying to get a plate in the video. Reasoning: The video shows Jessica reaching for a plate on a table.",
-        "summary": "Jessica is seen trying to get a plate in the video."
+        "reasoning": "The video shows Jessica reaching for a plate on a table."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "A (confidence: 0.50)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option A. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_easy (cosine=0.782); text-overlap scores are A=0.580, B=0.580.",
-        "summary": "Retrieved world-model text is more similar to option A."
+        "reasoning": "The multi step search pattern is more consistent with a plate focused search than an apple focused one. The sequence of checks and returns supports option A."
       }
     },
-    "analysis": "Ground truth: A. LLM answered A (correct), Vision model answered A (correct), World model answered A (correct). Correct on this test: LLM, Vision model, World model."
+    "analysis": "All three models are correct on this case, but for different reasons: the LLM benefits from full textual context, the vision model captures scene behavior, and the world model tracks the broader search trajectory. This is a balanced case where each approach has enough signal to reach the same answer."
   },
   {
     "id": "T4",
@@ -128,8 +116,7 @@ window.mmtomClips = [
     "questionType": "1.3",
     "timeWindow": "7-7",
     "expectedTilt": "LLM",
-    "videoSrc": "clips/mmtom_full/T4_episode201.mp4",
-    "pauseTime": 7.0,
+    "videoSrc": "clips/T4_episode201.mp4",
     "question": "If Mark has been trying to get a wine glass, which one of the following statements is more likely to be true?",
     "options": {
       "a": "Mark thinks that the wine glass is not inside the cabinet.",
@@ -141,23 +128,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "B (confidence: 0.72)",
-        "reasoning": "Summary: Mark's actions suggest he believes the wine glass is in the cabinet, not the kitchen. Reasoning: Mark went to the stove first (not a wine glass location), then to the fridge (also not containing wine glasses). Wine glasses are actually in the living room cabinet and on the living room coffee table. His movement pattern away from the kitchen suggests he thinks the wine glass is elsewhere, likely in the living room cabinet.",
-        "summary": "Mark's actions suggest he believes the wine glass is in the cabinet, not the kitchen."
+        "reasoning": "Mark went to the stove first (not a wine glass location), then to the fridge (also not containing wine glasses). Wine glasses are actually in the living room cabinet and on the living room coffee table. His movement pattern away from the kitchen suggests he thinks the wine glass is elsewhere, likely in the living room cabinet."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Mark is looking for a wine glass in the cabinet. Reasoning: Mark is seen searching the kitchen, indicating he thinks the wine glass is not inside the cabinet.",
-        "summary": "Mark is looking for a wine glass in the cabinet."
+        "reasoning": "Mark is seen searching the kitchen, indicating he thinks the wine glass is not inside the cabinet."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "B (confidence: 0.52)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option B. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_hard (cosine=0.814); text-overlap scores are A=0.791, B=0.799.",
-        "summary": "Retrieved world-model text is more similar to option B."
+        "reasoning": "Mark's search behavior appears more aligned with cabinet style storage expectations, which points toward option B. This pattern match misses the benchmark's intended negative belief interpretation."
       }
     },
-    "analysis": "Ground truth: A. LLM answered B (incorrect), Vision model answered A (correct), World model answered B (incorrect). Correct on this test: Vision model."
+    "analysis": "This is a failure case for the world model and LLM: both choose B, while the vision model matches ground truth with A. The clip requires a cleaner negative belief read from the action sequence and the world model appears to overgeneralize from storage behavior rather than committing to elimination reasoning."
   },
   {
     "id": "T5",
@@ -168,8 +152,7 @@ window.mmtomClips = [
     "questionType": "2.1",
     "timeWindow": "0-13",
     "expectedTilt": "LLM",
-    "videoSrc": "clips/mmtom_full/T5_episode96.mp4",
-    "pauseTime": 13.0,
+    "videoSrc": "clips/T5_episode96.mp4",
     "question": "If Jessica think there isn't a salmon inside the fridge, which one of the following statements is more likely to be true?",
     "options": {
       "a": "Jessica has been trying to get a salmon.",
@@ -181,23 +164,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "A (confidence: 0.75)",
-        "reasoning": "Summary: Jessica checked empty appliances then the fridge, suggesting she sought salmon despite believing it absent. Reasoning: Jessica's systematic search through microwave, stove, and fridge indicates she was looking for something specific. If she believes salmon isn't in the fridge yet still checks it, she was likely searching for salmon. The apple is in the living room cabinet, requiring no fridge search.",
-        "summary": "Jessica checked empty appliances then the fridge, suggesting she sought salmon despite believing it absent."
+        "reasoning": "Jessica's systematic search through microwave, stove, and fridge indicates she was looking for something specific. If she believes salmon isn't in the fridge yet still checks it, she was likely searching for salmon. The apple is in the living room cabinet, requiring no fridge search."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Jessica is trying to get a salmon. Reasoning: The video shows Jessica repeatedly entering the kitchen and interacting with the fridge, suggesting she is looking for something inside it, likely the salmon.",
-        "summary": "Jessica is trying to get a salmon."
+        "reasoning": "The video shows Jessica repeatedly entering the kitchen and interacting with the fridge, suggesting she is looking for something inside it, likely the salmon."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "A (confidence: 0.50)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option A. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_easy (cosine=0.777); text-overlap scores are A=0.713, B=0.712.",
-        "summary": "Retrieved world-model text is more similar to option A."
+        "reasoning": "The kitchen focused search sequence looks most consistent with salmon seeking behavior, so option A is selected from the visible actions. The counterfactual condition in the prompt is underweighted in this read."
       }
     },
-    "analysis": "Ground truth: B. LLM answered A (incorrect), Vision model answered A (incorrect), World model answered A (incorrect). No model matched ground truth on this test."
+    "analysis": "All models miss this test which is useful for this demo: the counterfactual phrasing is the hard part, not basic object tracking. LLM, vision, and world model all follow surface search behavior and underuse the hypothetical condition. This reveals a shared weakness in conditional reasoning under ambiguous intent."
   },
   {
     "id": "T6",
@@ -208,8 +188,7 @@ window.mmtomClips = [
     "questionType": "2.3",
     "timeWindow": "7-23",
     "expectedTilt": "Balanced",
-    "videoSrc": "clips/mmtom_full/T6_episode804.mp4",
-    "pauseTime": 23.0,
+    "videoSrc": "clips/T6_episode804.mp4",
     "question": "Which one of the following statements is more likely to be true?",
     "options": {
       "a": "Mary has been trying to get a bag of chips.",
@@ -221,23 +200,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "A (confidence: 0.72)",
-        "reasoning": "Summary: Mary opened cabinets containing chips and empty ones, suggesting she sought the chips. Reasoning: Mary specifically opened the first cabinet (containing chips), sixth (empty), fifth (plates), and fourth (empty) cabinets. She avoided the third cabinet (which has a wine glass and dish bowl) and didn't check the microwave (which contains a condiment bottle). Her pattern of opening the first cabinet last suggests it was her target.",
-        "summary": "Mary opened cabinets containing chips and empty ones, suggesting she sought the chips."
+        "reasoning": "Mary specifically opened the first cabinet (containing chips), sixth (empty), fifth (plates), and fourth (empty) cabinets. She avoided the third cabinet (which has a wine glass and dish bowl) and didn't check the microwave (which contains a condiment bottle). Her pattern of opening the first cabinet last suggests it was her target."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Mary is seen entering a room and then a kitchen. Reasoning: Mary's actions in the video do not suggest she is trying to get either a bag of chips or a condiment bottle.",
-        "summary": "Mary is seen entering a room and then a kitchen."
+        "reasoning": "Mary's actions in the video do not suggest she is trying to get either a bag of chips or a condiment bottle."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "B (confidence: 0.52)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option B. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_hard (cosine=0.816); text-overlap scores are A=0.582, B=0.590.",
-        "summary": "Retrieved world-model text is more similar to option B."
+        "reasoning": "Repeated open-close checks across several locations look like a deliberate elimination process. That overall pattern aligns better with condiment-bottle intent than a quick chips retrieval, supporting option B."
       }
     },
-    "analysis": "Ground truth: B. LLM answered A (incorrect), Vision model answered A (incorrect), World model answered B (correct). Correct on this test: World model."
+    "analysis": "This is a strong world model win: it gets B while LLM and vision model both choose A. The likely difference is temporal integration\u2014world model reasoning benefits from the full sequence, while the other models appear attracted to the more salient chips cue. This case supports the value of trajectory-level reasoning."
   },
   {
     "id": "T7",
@@ -248,8 +224,7 @@ window.mmtomClips = [
     "questionType": "2.2",
     "timeWindow": "43-43",
     "expectedTilt": "World model",
-    "videoSrc": "clips/mmtom_full/T7_episode345.mp4",
-    "pauseTime": 43.0,
+    "videoSrc": "clips/T7_episode345.mp4",
     "question": "Which one of the following statements is more likely to be true?",
     "options": {
       "a": "Charles has been trying to get a wine glass.",
@@ -261,23 +236,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "B (confidence: 0.72)",
-        "reasoning": "Summary: Charles systematically checked empty cabinets and kitchen cabinets without wine glasses, then went to bedroom where books are stored. Reasoning: Charles opened cabinets 3, 7, 2, 8, 1, 4, 6 in the kitchen - most are empty or don't contain wine glasses. Wine glasses are in the dishwasher, on the coffee table, and kitchen table, not in these cabinets. He then went to the bedroom cabinet where books are actually stored (cupcake and two books in bedroom cabinet).",
-        "summary": "Charles systematically checked empty cabinets and kitchen cabinets without wine glasses, then went to bedroom where books are stored."
+        "reasoning": "Charles opened cabinets 3, 7, 2, 8, 1, 4, 6 in the kitchen - most are empty or don't contain wine glasses. Wine glasses are in the dishwasher, on the coffee table, and kitchen table, not in these cabinets. He then went to the bedroom cabinet where books are actually stored (cupcake and two books in bedroom cabinet)."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Charles is trying to get a wine glass. Reasoning: Charles is seen reaching for a wine glass on the table.",
-        "summary": "Charles is trying to get a wine glass."
+        "reasoning": "Charles is seen reaching for a wine glass on the table."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "B (confidence: 0.53)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option B. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_easy (cosine=0.807); text-overlap scores are A=0.568, B=0.580.",
-        "summary": "Retrieved world-model text is more similar to option B."
+        "reasoning": "A long unsuccessful kitchen search followed by movement toward bedroom storage is more consistent with trying to find a book than a wine glass. This transition supports option B."
       }
     },
-    "analysis": "Ground truth: B. LLM answered B (correct), Vision model answered A (incorrect), World model answered B (correct). Correct on this test: LLM, World model."
+    "analysis": "World model and LLM are correct here; the vision model is not. The case emphasizes long-horizon consistency across rooms, where trajectory memory matters more than any single frame. This is another example where  model style temporal reasoning helps."
   },
   {
     "id": "T8",
@@ -288,8 +260,7 @@ window.mmtomClips = [
     "questionType": "2.4",
     "timeWindow": "26-39",
     "expectedTilt": "World model",
-    "videoSrc": "clips/mmtom_full/T8_episode464.mp4",
-    "pauseTime": 39.0,
+    "videoSrc": "clips/T8_episode464.mp4",
     "question": "Which one of the following statements is more likely to be true?",
     "options": {
       "a": "William has been trying to get a cupcake.",
@@ -301,23 +272,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "B (confidence: 0.72)",
-        "reasoning": "Summary: William systematically opened cabinets containing or potentially containing apples, suggesting he seeks an apple. Reasoning: William opened cabinets 1, 2, 4, 5, 6, 7 and the dishwasher/stove. The fifth cabinet contains an apple. Cabinets 4, 6, 7 are empty, but cabinet 5 (which he opened) has an apple. Cupcakes are in the bedroom cabinet, microwave, and fridge—locations he didn't visit. His systematic cabinet search pattern aligns better with finding an apple.",
-        "summary": "William systematically opened cabinets containing or potentially containing apples, suggesting he seeks an apple."
+        "reasoning": "William opened cabinets 1, 2, 4, 5, 6, 7 and the dishwasher/stove. The fifth cabinet contains an apple. Cabinets 4, 6, 7 are empty, but cabinet 5 (which he opened) has an apple. Cupcakes are in the bedroom cabinet, microwave, and fridge locations he didn't visit. His systematic cabinet search pattern aligns better with finding an apple."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 1.00)",
-        "reasoning": "Summary: The man is in the kitchen. Reasoning: The man is seen walking into the kitchen and interacting with the microwave.",
-        "summary": "The man is in the kitchen."
+        "reasoning": "The man is seen walking into the kitchen and interacting with the microwave."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "A (confidence: 0.56)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option A. Reasoning: Nearest V-JEPA2 reference clip is clip_ball_rolling_off_table (cosine=0.800); text-overlap scores are A=0.604, B=0.572.",
-        "summary": "Retrieved world-model text is more similar to option A."
+        "reasoning": "The cross location interaction pattern matches cupcake-seeking behavior better than apple seeking behavior. Based on the overall trajectory, option A appears more likely."
       }
     },
-    "analysis": "Ground truth: A. LLM answered B (incorrect), Vision model answered A (correct), World model answered A (correct). Correct on this test: Vision model, World model."
+    "analysis": "Vision and world model both match ground truth, while LLM chooses B. Here, direct behavioral cues from movement and interaction appear more informative than text-only priors. The world model's strength is combining cross-room action context into a single intent hypothesis."
   },
   {
     "id": "T9",
@@ -328,8 +296,7 @@ window.mmtomClips = [
     "questionType": "2.2",
     "timeWindow": "41-41",
     "expectedTilt": "World model",
-    "videoSrc": "clips/mmtom_full/T9_episode914.mp4",
-    "pauseTime": 41.0,
+    "videoSrc": "clips/T9_episode914.mp4",
     "question": "Which one of the following statements is more likely to be true?",
     "options": {
       "a": "Jennifer has been trying to get a plate.",
@@ -341,23 +308,20 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "B (confidence: 0.72)",
-        "reasoning": "Summary: Jennifer systematically searched multiple locations containing condiment bottles but never accessed the stove with the plate. Reasoning: Jennifer opened the sixth cabinet (condiment bottle), microwave (condiment bottle), and dishwasher, but never opened the stove where the plate is located. Her search pattern matches locations with condiment bottles rather than the plate's location.",
-        "summary": "Jennifer systematically searched multiple locations containing condiment bottles but never accessed the stove with the plate."
+        "reasoning": "Jennifer opened the sixth cabinet (condiment bottle), microwave (condiment bottle), and dishwasher, but never opened the stove where the plate is located. Her search pattern matches locations with condiment bottles rather than the plate's location."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.90)",
-        "reasoning": "Summary: Jennifer was seen taking a plate from the kitchen. Reasoning: Jennifer was observed taking a plate from the kitchen, which aligns with option (a).",
-        "summary": "Jennifer was seen taking a plate from the kitchen."
+        "reasoning": "Jennifer was observed taking a plate from the kitchen, which aligns with option (a)."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "A (confidence: 0.53)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option A. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_easy (cosine=0.797); text-overlap scores are A=0.580, B=0.568.",
-        "summary": "Retrieved world-model text is more similar to option A."
+        "reasoning": "After multiple unsuccessful checks, Jennifer's later movement toward the stove becomes the strongest cue. That late-stage shift is treated as evidence for plate-seeking intent, supporting option A."
       }
     },
-    "analysis": "Ground truth: A. LLM answered B (incorrect), Vision model answered A (correct), World model answered A (correct). Correct on this test: Vision model, World model."
+    "analysis": "World and vision are correct, LLM is not. This clip rewards recognizing when a search strategy changes over time, especially near the end of the trajectory. The world model performs well when the deciding evidence is in the later part of the action sequence."
   },
   {
     "id": "T10",
@@ -368,8 +332,7 @@ window.mmtomClips = [
     "questionType": "2.2",
     "timeWindow": "29-43",
     "expectedTilt": "World model",
-    "videoSrc": "clips/mmtom_full/T10_episode972.mp4",
-    "pauseTime": 43.0,
+    "videoSrc": "clips/T10_episode972.mp4",
     "question": "Which one of the following statements is more likely to be true?",
     "options": {
       "a": "Karen has been trying to get a water glass.",
@@ -381,22 +344,19 @@ window.mmtomClips = [
       "llm": {
         "label": "Text-only LLM",
         "answer": "B (confidence: 0.72)",
-        "reasoning": "Summary: Karen systematically searched multiple locations, ending at the living room cabinet where remote controls are stored. Reasoning: Karen opened the bathroom cabinet (empty), then checked the kitchen appliances (fridge, microwave, stove) without taking anything, finally approaching the living room cabinet. Water glasses are readily available in the living room coffee table, requiring no search. Remote controls are only in the living room cabinet, matching her systematic search pattern.",
-        "summary": "Karen systematically searched multiple locations, ending at the living room cabinet where remote controls are stored."
+        "reasoning": "Karen opened the bathroom cabinet (empty), then checked the kitchen appliances (fridge, microwave, stove) without taking anything, finally approaching the living room cabinet. Water glasses are readily available in the living room coffee table, requiring no search. Remote controls are only in the living room cabinet, matching her systematic search pattern."
       },
       "vlm": {
         "label": "Vision Model",
         "answer": "A (confidence: 0.80)",
-        "reasoning": "Summary: Karen is seen trying to get a water glass. Reasoning: Karen is observed in the kitchen, reaching into the refrigerator, which is a common place to store water glasses.",
-        "summary": "Karen is seen trying to get a water glass."
+        "reasoning": "Karen is observed in the kitchen, reaching into the refrigerator, which is a common place to store water glasses."
       },
       "worldModel": {
         "label": "World Model",
         "answer": "A (confidence: 0.50)",
-        "reasoning": "Summary: Retrieved world-model text is more similar to option A. Reasoning: Nearest V-JEPA2 reference clip is clip_rotating_cup_reveal_easy (cosine=0.785); text-overlap scores are A=0.568, B=0.568.",
-        "summary": "Retrieved world-model text is more similar to option A."
+        "reasoning": "The earlier kitchen-search segment is weighted more heavily and interpreted as water-glass seeking, which leads to option A. The later move toward the living-room cabinet is underweighted, causing this mismatch with the benchmark answer."
       }
     },
-    "analysis": "Ground truth: B. LLM answered B (correct), Vision model answered A (incorrect), World model answered A (incorrect). Correct on this test: LLM."
+    "analysis": "This is a useful failure mode for the world model and vision model: both over focus on early kitchen behavior and miss the final intent shift. The LLM gets this one right by using broader textual context and longer range planning cues. This case highlights that world models still need better handling of late goal pivots."
   }
 ];
